@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog Website</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    @media only screen and (max-width: 767px) {
+      .article1 {
+        display: flex;
+        flex-direction: column;
+        margin: auto !important;
+        margin-top: 1rem !important;
+        margin-bottom: 1rem;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    @media only screen and (min-width: 768px) and (max-width: 944px) {
+      .article1 {
+        display: flex;
+        flex-direction: column;
+
+        margin-top: 1rem !important;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+  </style>
+  <body>
+    <div class="container m-auto">
+      <h1 class="mb-4 text-center mt-5">Blog Website</h1>
+      <a href="/article/new" class="btn btn-success"> Create Article </a>
+      <div class="d-flex mt-3 article1">
+        <% articles.forEach(article => {%>
+        <div class="card" style="width: 18rem">
+          <div class="card-header text-center">Article</div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item bg-success">
+              title: <%=article.title%>
+            </li>
+            <li class="list-group-item bg-danger">
+              discription: <%=article.discription%>
+            </li>
+            <li class="list-group-item bg-success">
+              markdown: <%=article.markdown%>
+            </li>
+            <li class="list-group-item bg-danger">
+              date: <%=article.createdAt.toLocaleDateString() %>
+            </li>
+          </ul>
+          <a href="article/<%=article.id%>" class="btn btn-primary">
+            Read More!
+          </a>
+          <a
+            href="/article/update/<%=article.id%>?_method=PUT"
+            class="btn btn-info mt-2"
+          >
+            Update
+          </a>
+          <form
+            action="/article/<%=article.id %>?_method=DELETE"
+            method="POST"
+            class="d-inline mt-2"
+          >
+            <button type="submit" class="btn btn-danger w-100 mb-3">
+              Delete
+            </button>
+          </form>
+        </div>
+        <%})%>
+      </div>
+    </div>
+  </body>
+</html>
